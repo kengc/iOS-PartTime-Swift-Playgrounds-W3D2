@@ -16,7 +16,7 @@ var count: Int = 20 // count is a count
 
 var countDouble = Double(count) // convert count to a Double
 
-ratio * countDouble // now this works!
+print(ratio * countDouble) // now this works!
 
 //:
 //: With that kind of conversion in mind, let's say we have a string that contains the characters 1 and 0, e.g. "10". That looks like a number, but it's a string that contains a text representation of a number.
@@ -32,8 +32,8 @@ var convertedNum = Double(numberString) //convert numberString to a Double
 //:
 //: So now let's try to add 1 to our `convertedNum` variable.
 
-//convertedNum = convertedNum + 1 // uncomment this line!
-
+convertedNum = convertedNum! + 1 // uncomment this line!
+print(convertedNum!)
 //: Looks like the compiler doesn't like that! It's giving us a cryptic error about applying binary operators and types and things, and offers the suggestion of adding an exclaimation point!
 //:
 //: We aren't able to do math with `convertedNum` because while it's easy to say how to add `10` and `1` together, Swift doesn't know how to add maybe-nothing-maybe-10 and `1` together.
@@ -47,6 +47,7 @@ var convertedNum = Double(numberString) //convert numberString to a Double
 //: Use the example above to write code that tries to convert `inputString` into an `Int`.
 
 var inputString = "hello"
+//print(Int(inputString))
 // try to convert inputString to an Int here:
 
 
@@ -57,8 +58,9 @@ var inputString = "hello"
 //: First, make the second line below compile by adding a force unwrap.
 //: Then, change the string "1" to "🔥" and observe how the playground responds (or doesn't respond)
 
-var number = Int("🔥")
-// number + 1 // uncomment and fix this.
+//var number = Int("🔥")
+var number = Int("5")
+//number! + 1 // uncomment and fix this.
 
 //: In general, force unwrapping is always a risk for a crash, and should be used sparingly and with caution.
 //:
@@ -86,7 +88,11 @@ if let unwrapped = number {
 
 var greeting: String? = "Aloha!"
 
-
+if let whatType = greeting {
+    print("\(whatType) unwrapped")
+} else {
+    print(" did not unwrap")
+}
 //: ## One last thing...
 //:
 //: Have a look at the following code:
@@ -97,6 +103,50 @@ var advancedNumber1 = number1.advanced(by: 10) // advanced by 10, should be 20
 var number2 = Int("10") // maybe a number
 var advancedNumber2 = number2?.advanced(by: 10) // advanced by 10, should be maybe 20
 
+
+//clsaa notes
+//var str:String = "hello" //explicit type declation
+
+var str:String? = "hello"
+print(str!)  //unwrap
+print("\(str)")  //unwrap
+if let string = str{
+    print(string)
+}
+
+func funkyString() -> String? {
+    return "funky"
+}
+
+if let funck = funkyString() {
+    print(funck)
+}
+
+func demoFunc() {
+    
+    guard let pFunck = funkyString() else {
+        return
+    }  //if find from funkystring() then keep going else do the stuff in the brackets
+ pFunck //never fires if nil
+}
+demoFunc()
+// print(pFunck)
+
+
+//guard let pFunck = str else {
+//    print("not a string")
+//}
+//print(string)
+
+//var str:String? = "not nil"
+let string = str ?? "str was nil"
+print(string)
+
+let x = str?.uppercased()
+
+if let x = x{
+print(x)
+}
 //: Use option-click to look at all the variables to get clear on their types. Notice that because `number2` is optional, `advancedNumber2` is also optional. What we're doing with `number2` is called optional-chaining. That's the question mark between `number2` and `.advanceBy(10)`. Using this we can call methods (like `advanceBy`) on variables that are optional.
 //:
 //: There are two important side effects of optional chaining:
